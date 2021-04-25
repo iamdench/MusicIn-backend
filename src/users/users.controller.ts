@@ -1,8 +1,11 @@
-import {Controller, Delete, Get, Param, Post, Put, Body} from '@nestjs/common';
+import {Controller, Delete, Get, Param, Post, Put, Body, UseGuards} from '@nestjs/common';
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UpdateUserDto} from "./dto/update-user.dto";
 import {UsersService} from "./users.service";
 import {User} from "./schemas/user.schema";
+import {JwtAuthGuard} from "./auth/guards/jwt-auth.guard";
+import {LocalAuthGuard} from "./auth/guards/local-auth.guard";
+import {AuthService} from "./auth/auth.service";
 
 @Controller('users')
 export class UsersController {
@@ -16,8 +19,13 @@ export class UsersController {
     }
 
     @Get(':id')
-    getOne(@Param('id') id: string): Promise<User> {
+    getOneById(@Param('id') id: string): Promise<User> {
     return this.usersService.getById(id)
+    }
+
+    @Get(':userName')
+    getOneByName(@Param('userName') userName: string): Promise<User>{
+        return this.usersService.findOne(userName);
     }
 
     @Post()

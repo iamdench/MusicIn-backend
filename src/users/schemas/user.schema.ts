@@ -14,6 +14,12 @@ export class User{
 
     @Prop()
     password: string
+
+    @Prop()
+    spotifyLink: string
+
+    @Prop()
+    myLikes: number
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

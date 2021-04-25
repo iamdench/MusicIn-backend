@@ -1,13 +1,16 @@
-import { Module } from '@nestjs/common';
+import {Module} from '@nestjs/common';
 import {MongooseModule} from "@nestjs/mongoose";
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module'
+import {AppController} from './app.controller';
+import {AppService} from './app.service';
+import {UsersModule} from './users/users.module'
+import {AuthModule} from "./users/auth/auth.module";
+import {mongooseKeys} from "./mongoose.keys";
 
 @Module({
   imports: [
       UsersModule,
-      MongooseModule.forRoot(`mongodb+srv://denis:qazzaq123@cluster0.tb4op.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+      AuthModule,
+      MongooseModule.forRoot(`mongodb+srv://${mongooseKeys}@cluster0.tb4op.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
   ],
   controllers: [AppController],
   providers: [AppService],
