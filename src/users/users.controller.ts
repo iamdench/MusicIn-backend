@@ -23,9 +23,9 @@ export class UsersController {
     return this.usersService.getById(id)
     }
 
-    @Get(':userName')
-    getOneByName(@Param('userName') userName: string): Promise<User>{
-        return this.usersService.findOne(userName);
+    @Get(':username')
+    getOneByName(@Param('username') username: string): Promise<User>{
+        return this.usersService.findOne(username);
     }
 
     @Post()

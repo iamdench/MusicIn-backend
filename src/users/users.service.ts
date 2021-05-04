@@ -33,8 +33,7 @@ export class UsersService {
         return this.userModel.findByIdAndUpdate(id, userDto, {new: true});
     }
 
-    async findOne(userName: string): Promise<User | undefined> {
-        return this.userModel.findOne({userName: userName});
-
+    async findOne(username: string): Promise<User | undefined> {
+        return this.userModel.findOne({username: username});
     }
 }

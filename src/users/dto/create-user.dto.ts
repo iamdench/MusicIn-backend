@@ -1,7 +1,7 @@
 export class CreateUserDto {
     readonly email: string;
     readonly password: string;
-    readonly userName: string;
+    readonly username: string;
     readonly spotifyLink: string;
     readonly myLikes: number;
 }

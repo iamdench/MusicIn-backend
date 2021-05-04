@@ -10,7 +10,7 @@ import {mongooseKeys} from "./mongoose.keys";
   imports: [
       UsersModule,
       AuthModule,
-      MongooseModule.forRoot(`mongodb+srv://${mongooseKeys}@cluster0.tb4op.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
+      MongooseModule.forRoot(`mongodb+srv://denis:qazzaq123@cluster0.tb4op.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`)
   ],
   controllers: [AppController],
   providers: [AppService],

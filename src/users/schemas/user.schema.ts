@@ -7,7 +7,7 @@ export type UserDocument = User & Document;
 export class User{
 
     @Prop()
-    userName: string
+    username: string
 
     @Prop()
     email: string
