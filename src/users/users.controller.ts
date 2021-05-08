@@ -1,4 +1,4 @@
-import {Controller, Delete, Get, Param, Post, Put, Body, UseGuards} from '@nestjs/common';
+import {Controller, Delete, Get, Param, Post, Put, Body, UseGuards, Request} from '@nestjs/common';
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UpdateUserDto} from "./dto/update-user.dto";
 import {UsersService} from "./users.service";
@@ -6,6 +6,7 @@ import {User} from "./schemas/user.schema";
 import {JwtAuthGuard} from "./auth/guards/jwt-auth.guard";
 import {LocalAuthGuard} from "./auth/guards/local-auth.guard";
 import {AuthService} from "./auth/auth.service";
+import {LikeUserDto} from "./dto/like-user.dto";
 
 @Controller('users')
 export class UsersController {
@@ -31,6 +32,18 @@ export class UsersController {
     @Post()
     create(@Body() createUserDto: CreateUserDto): Promise<User> {
         return this.usersService.create(createUserDto);
+    }
+
+    // ikeByUserDto: LikeUserDto
+
+    @Post('like')
+    like(@Request() req, @Body() likeUserDto: LikeUserDto): Promise<void> {
+        return this.usersService.updateLikesMe(likeUserDto.user_liker_id, likeUserDto.user_liked_id)
+    }
+
+    @Post('dislike')
+    dislike(@Request() req, @Body() likeUserDto: LikeUserDto): Promise<void> {
+        return this.usersService.udpateDislikesMe(likeUserDto.user_liker_id, likeUserDto.user_liked_id)
     }
 
     @Delete(':id')

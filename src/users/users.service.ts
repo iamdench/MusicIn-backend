@@ -36,4 +36,14 @@ export class UsersService {
     async findOne(username: string): Promise<User | undefined> {
         return this.userModel.findOne({username: username});
     }
+
+    async updateLikesMe(idLikedBy: string, idLikedTo: string ): Promise<any>{
+        await this.userModel.findOneAndUpdate({_id: idLikedBy}, {$push: {iLiked: idLikedTo}})
+        await this.userModel.findOneAndUpdate({_id: idLikedTo}, {$push: {likedMe: idLikedBy}, $inc: {myLikes: 1}})
+    }
+
+    async udpateDislikesMe(idDislikedBy: string, idDislikedTo: string ): Promise<any>{
+        await this.userModel.findOneAndUpdate({_id: idDislikedBy}, {$pop: {iLiked: 1}})
+        await this.userModel.findOneAndUpdate({_id: idDislikedTo}, {$pop: {likedMe: 1}, $inc: {myLikes: -1}})
+    }
 }
