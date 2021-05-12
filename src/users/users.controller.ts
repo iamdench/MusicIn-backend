@@ -1,11 +1,8 @@
-import {Controller, Delete, Get, Param, Post, Put, Body, UseGuards, Request} from '@nestjs/common';
+import {Controller, Delete, Get, Param, Post, Put, Body, UseGuards, Request, Query} from '@nestjs/common';
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UpdateUserDto} from "./dto/update-user.dto";
 import {UsersService} from "./users.service";
 import {User} from "./schemas/user.schema";
-import {JwtAuthGuard} from "./auth/guards/jwt-auth.guard";
-import {LocalAuthGuard} from "./auth/guards/local-auth.guard";
-import {AuthService} from "./auth/auth.service";
 import {LikeUserDto} from "./dto/like-user.dto";
 
 @Controller('users')
@@ -24,8 +21,8 @@ export class UsersController {
     return this.usersService.getById(id)
     }
 
-    @Get(':username')
-    getOneByName(@Param('username') username: string): Promise<User>{
+    @Get('user:username')
+    getOneByName(@Param ('username') username: string): Promise<User>{
         return this.usersService.findOne(username);
     }
 
@@ -33,8 +30,6 @@ export class UsersController {
     create(@Body() createUserDto: CreateUserDto): Promise<User> {
         return this.usersService.create(createUserDto);
     }
-
-    // ikeByUserDto: LikeUserDto
 
     @Post('like')
     like(@Request() req, @Body() likeUserDto: LikeUserDto): Promise<void> {
